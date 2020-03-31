@@ -6,7 +6,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./db/data:/var/lib/postgresql/data
+      # Postgres volumes don't map well from Windows partitions - ownership problem.
+      # Either use named volumes or local storage only.
+      #- ./db/data:/var/lib/postgresql/data
       - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     environment:
       POSTGRES_PASSWORD: "postgres"
