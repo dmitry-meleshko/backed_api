@@ -33,9 +33,10 @@ func initRoutes(router *mux.Router) {
 		w.WriteHeader(http.StatusOK)
 	})
 
-	api.HandleFunc("/patients", patientHandlerGetAll).Methods("GET")
-	api.HandleFunc("/patients/{id:[0-9]+}", patientHandlerGetOne).Methods("GET")
-	api.HandleFunc("/patients", patientHandlerAdd).Methods("POST")
+	api.HandleFunc("/auth", authHandlerNewToken).Methods("POST")
+	api.HandleFunc("/patients", authValidateHandler(patientHandlerGetAll)).Methods("GET")
+	api.HandleFunc("/patients/{id:[0-9]+}", authValidateHandler(patientHandlerGetOne)).Methods("GET")
+	api.HandleFunc("/patients", authValidateHandler(patientHandlerAdd)).Methods("POST")
 
 	return
 }

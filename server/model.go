@@ -67,7 +67,7 @@ func (ps *patients) getPatients(db *sql.DB) ([]patientItem, error) {
 		if err != nil {
 			return nil, err
 		}
-		// TODO: feed to a channel here
+		// TODO: consider a channel here. An overkill for simple DB access
 		ps.items = append(ps.items, p)
 	}
 

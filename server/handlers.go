@@ -67,7 +67,6 @@ func patientHandlerAdd(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
-	defer r.Body.Close()
 
 	log.Println("Adding new patient")
 	if err := p.addPatient(db); err != nil {
@@ -80,6 +79,7 @@ func patientHandlerAdd(w http.ResponseWriter, r *http.Request) {
 	resp, _ := json.Marshal("Created patient ID: " + strconv.Itoa(p.ID))
 	w.Write(resp)
 
+	return
 }
 
 // TODO: implement handlers for Physician and Visit methods
